@@ -7,6 +7,7 @@ function Patch {
         -Patterns @('#include .+') `
         -Insert @"
 #include <cstring>
+#include "src/snapshot/code-serializer.h"
 "@
 
     $Content = Edit-FunctionBody -Content $Content `
@@ -17,8 +18,6 @@ function Patch {
             -Insert @"
   global_template->Set(isolate, "loadBytecode",
                        FunctionTemplate::New(isolate, LoadBytecode));
-  global_template->Set(isolate, "dumpOpcodes",
-                       FunctionTemplate::New(isolate, DumpOpcodes));
 "@
         return $Body
     }
