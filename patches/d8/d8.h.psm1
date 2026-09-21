@@ -7,7 +7,6 @@ function Patch {
         -Patterns @('class Shell .+', '.*public:\s*$') `
         -Insert @"
   static void LoadBytecode(const v8::FunctionCallbackInfo<v8::Value>& info);
-  static void DumpOpcodes(const v8::FunctionCallbackInfo<v8::Value>& info);
 "@
 
     return $Content
