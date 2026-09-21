@@ -6,16 +6,16 @@ on:
       v8_branch:
         description: 'V8 Version / Branch'
         required: true
-        default: '13.8.258.18'
+        default: '12.4.254.21'
   push:
     branches:
       - main
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     env:
-      V8_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.v8_branch || '13.8.258.18' }}
+      V8_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.v8_branch || '12.4.254.21' }}
       DEPOT_TOOLS_WIN_TOOLCHAIN: 0
 
     steps:
