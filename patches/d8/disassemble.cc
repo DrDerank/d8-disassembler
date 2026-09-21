@@ -28,8 +28,12 @@ void Shell::LoadBytecode(const v8::FunctionCallbackInfo<v8::Value>& info) {
     auto source = isolateInternal->factory()
         ->NewStringFromUtf8(base::CStrVector("source"))
         .ToHandleChecked();
-    v8::internal::ScriptDetails script_details;
 
     printf("===== START DESERIALIZE BYTECODE =====\n");
-    v8::internal::CodeSerializer::Deserialize(isolateInternal, &cached_data, source, script_details);
+    auto maybe_result = v8::internal::CodeSerializer::Deserialize(
+        isolateInternal, &cached_data, source, v8::ScriptOriginOptions());
+    if (maybe_result.is_null()) {
+        printf("===== DESERIALIZE RETURNED NOTHING =====\n");
+    }
+    printf("===== END DESERIALIZE BYTECODE =====\n");
 }
